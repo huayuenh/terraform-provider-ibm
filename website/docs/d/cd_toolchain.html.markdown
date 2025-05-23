@@ -31,28 +31,18 @@ After your data source is created, you can read values from the following attrib
 
 * `id` - The unique identifier of the cd_toolchain.
 * `account_id` - (String) Account ID where toolchain can be found.
-
 * `created_at` - (String) Toolchain creation timestamp.
-
 * `created_by` - (String) Identity that created the toolchain.
-
 * `crn` - (String) Toolchain CRN.
-
 * `description` - (String) Describes the toolchain.
   * Constraints: The maximum length is `500` characters. The minimum length is `0` characters. The value must match regular expression `/^(.*?)$/`.
-
 * `href` - (String) URI that can be used to retrieve toolchain.
-
 * `location` - (String) Toolchain region.
-
 * `name` - (String) Toolchain name.
   * Constraints: The maximum length is `128` characters. The minimum length is `0` characters. The value must match regular expression `/^([^\\x00-\\x7F]|[a-zA-Z0-9-._ ])+$/`.
-
 * `resource_group_id` - (Forces new resource, String) Resource group where the toolchain is located.
   * Constraints: The maximum length is `32` characters. The minimum length is `32` characters. The value must match regular expression `/^[0-9a-f]{32}$/`.
-
 * `ui_href` - (String) URL of a user-facing user interface for this toolchain.
-
 * `updated_at` - (String) Latest toolchain update timestamp.
 
 * `tags` - (Array of Strings) Tags associated with the toolchain.
