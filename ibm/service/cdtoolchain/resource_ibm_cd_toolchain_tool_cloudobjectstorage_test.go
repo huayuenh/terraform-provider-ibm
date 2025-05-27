@@ -19,7 +19,7 @@ import (
 
 func TestAccIBMCdToolchainToolCloudobjectstorageBasic(t *testing.T) {
 	var conf cdtoolchainv2.ToolchainTool
-	toolchainID := fmt.Sprintf("tf_toolchain_id_%d", acctest.RandIntRange(10, 100))
+	toolchainID := acc.ToolchainID
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { acc.TestAccPreCheck(t) },
@@ -27,7 +27,7 @@ func TestAccIBMCdToolchainToolCloudobjectstorageBasic(t *testing.T) {
 		CheckDestroy: testAccCheckIBMCdToolchainToolCloudobjectstorageDestroy,
 		Steps: []resource.TestStep{
 			resource.TestStep{
-				Config: testAccCheckIBMCdToolchainToolCloudobjectstorageConfigBasic(toolchainID),
+				Config: testAccCheckIBMCdToolchainToolCloudobjectstorageConfigBasic(toolchainID, acc.COSApiKey, acc.CosCRN, acc.BucketName),
 				Check: resource.ComposeAggregateTestCheckFunc(
 					testAccCheckIBMCdToolchainToolCloudobjectstorageExists("ibm_cd_toolchain_tool_cloudobjectstorage.cd_toolchain_tool_cloudobjectstorage_instance", conf),
 					resource.TestCheckResourceAttr("ibm_cd_toolchain_tool_cloudobjectstorage.cd_toolchain_tool_cloudobjectstorage_instance", "toolchain_id", toolchainID),
@@ -39,7 +39,7 @@ func TestAccIBMCdToolchainToolCloudobjectstorageBasic(t *testing.T) {
 
 func TestAccIBMCdToolchainToolCloudobjectstorageAllArgs(t *testing.T) {
 	var conf cdtoolchainv2.ToolchainTool
-	toolchainID := fmt.Sprintf("tf_toolchain_id_%d", acctest.RandIntRange(10, 100))
+	toolchainID := acc.ToolchainID
 	name := fmt.Sprintf("tf_name_%d", acctest.RandIntRange(10, 100))
 	nameUpdate := fmt.Sprintf("tf_name_%d", acctest.RandIntRange(10, 100))
 
@@ -49,7 +49,7 @@ func TestAccIBMCdToolchainToolCloudobjectstorageAllArgs(t *testing.T) {
 		CheckDestroy: testAccCheckIBMCdToolchainToolCloudobjectstorageDestroy,
 		Steps: []resource.TestStep{
 			resource.TestStep{
-				Config: testAccCheckIBMCdToolchainToolCloudobjectstorageConfig(toolchainID, name),
+				Config: testAccCheckIBMCdToolchainToolCloudobjectstorageConfig(toolchainID, name, acc.COSApiKey, acc.CosCRN, acc.BucketName),
 				Check: resource.ComposeAggregateTestCheckFunc(
 					testAccCheckIBMCdToolchainToolCloudobjectstorageExists("ibm_cd_toolchain_tool_cloudobjectstorage.cd_toolchain_tool_cloudobjectstorage_instance", conf),
 					resource.TestCheckResourceAttr("ibm_cd_toolchain_tool_cloudobjectstorage.cd_toolchain_tool_cloudobjectstorage_instance", "toolchain_id", toolchainID),
@@ -57,7 +57,7 @@ func TestAccIBMCdToolchainToolCloudobjectstorageAllArgs(t *testing.T) {
 				),
 			},
 			resource.TestStep{
-				Config: testAccCheckIBMCdToolchainToolCloudobjectstorageConfig(toolchainID, nameUpdate),
+				Config: testAccCheckIBMCdToolchainToolCloudobjectstorageConfig(toolchainID, nameUpdate, acc.COSApiKey, acc.CosCRN, acc.BucketName),
 				Check: resource.ComposeAggregateTestCheckFunc(
 					resource.TestCheckResourceAttr("ibm_cd_toolchain_tool_cloudobjectstorage.cd_toolchain_tool_cloudobjectstorage_instance", "toolchain_id", toolchainID),
 					resource.TestCheckResourceAttr("ibm_cd_toolchain_tool_cloudobjectstorage.cd_toolchain_tool_cloudobjectstorage_instance", "name", nameUpdate),
@@ -72,25 +72,25 @@ func TestAccIBMCdToolchainToolCloudobjectstorageAllArgs(t *testing.T) {
 	})
 }
 
-func testAccCheckIBMCdToolchainToolCloudobjectstorageConfigBasic(toolchainID string) string {
+func testAccCheckIBMCdToolchainToolCloudobjectstorageConfigBasic(toolchainID string, cosAPIKey string, cosCRN string, bucketName string) string {
 	return fmt.Sprintf(`
 		resource "ibm_cd_toolchain_tool_cloudobjectstorage" "cd_toolchain_tool_cloudobjectstorage_instance" {
 			toolchain_id = "%s"
 			parameters {
 				name = "cos_tool_01"
 				auth_type = "apikey"
-				cos_api_key = "cos_api_key"
-				instance_crn = "instance_crn"
-				bucket_name = "bucket_name"
+				cos_api_key = "%s"
+				instance_crn = "%s"
+				bucket_name = "%s"
 				endpoint = "s3.direct.us-south.cloud-object-storage.appdomain.cloud"
 				hmac_access_key_id = "hmac_access_key_id"
 				hmac_secret_access_key = "hmac_secret_access_key"
 			}
 		}
-	`, toolchainID)
+	`, toolchainID, cosAPIKey, cosCRN, bucketName)
 }
 
-func testAccCheckIBMCdToolchainToolCloudobjectstorageConfig(toolchainID string, name string) string {
+func testAccCheckIBMCdToolchainToolCloudobjectstorageConfig(toolchainID string, name string, cosAPIKey string, cosCRN string, bucketName string) string {
 	return fmt.Sprintf(`
 
 		resource "ibm_cd_toolchain_tool_cloudobjectstorage" "cd_toolchain_tool_cloudobjectstorage_instance" {
@@ -99,15 +99,15 @@ func testAccCheckIBMCdToolchainToolCloudobjectstorageConfig(toolchainID string, 
 			parameters {
 				name = "cos_tool_01"
 				auth_type = "apikey"
-				cos_api_key = "cos_api_key"
-				instance_crn = "instance_crn"
-				bucket_name = "bucket_name"
+				cos_api_key = "%s"
+				instance_crn = "%s"
+				bucket_name = "%s"
 				endpoint = "s3.direct.us-south.cloud-object-storage.appdomain.cloud"
 				hmac_access_key_id = "hmac_access_key_id"
 				hmac_secret_access_key = "hmac_secret_access_key"
 			}
 		}
-	`, toolchainID, name)
+	`, toolchainID, name, cosAPIKey, cosCRN, bucketName)
 }
 
 func testAccCheckIBMCdToolchainToolCloudobjectstorageExists(n string, obj cdtoolchainv2.ToolchainTool) resource.TestCheckFunc {
