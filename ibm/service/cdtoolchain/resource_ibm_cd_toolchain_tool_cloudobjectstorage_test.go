@@ -64,7 +64,7 @@ func TestAccIBMCdToolchainToolCloudobjectstorageAllArgs(t *testing.T) {
 				),
 			},
 			resource.TestStep{
-				ResourceName:      "ibm_cd_toolchain_tool_cloudobjectstorage.cd_toolchain_tool_cloudobjectstorage",
+				ResourceName:      "ibm_cd_toolchain_tool_cloudobjectstorage.cd_toolchain_tool_cloudobjectstorage_instance",
 				ImportState:       true,
 				ImportStateVerify: true,
 			},
