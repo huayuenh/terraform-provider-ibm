@@ -36,12 +36,9 @@ After your data source is created, you can read values from the following attrib
 
 * `id` - The unique identifier of the cd_toolchain_tool_sonarqube.
 * `crn` - (String) Tool CRN.
-
 * `href` - (String) URI representing the tool.
-
 * `name` - (String) Name of the tool.
   * Constraints: The maximum length is `128` characters. The minimum length is `0` characters. The value must match regular expression `/^([^\\x00-\\x7F]|[a-zA-Z0-9-._ ])+$/`.
-
 * `parameters` - (List) Unique key-value pairs representing parameters to be used to create the tool. A list of parameters for each tool integration can be found in the <a href="https://cloud.ibm.com/docs/ContinuousDelivery?topic=ContinuousDelivery-integrations">Configuring tool integrations page</a>.
 Nested schema for **parameters**:
 	* `blind_connection` - (Boolean) When set to true, instructs IBM Cloud Continuous Delivery to not validate the configuration of this integration. Set this to true if the SonarQube server is not addressable on the public internet.
@@ -50,19 +47,13 @@ Nested schema for **parameters**:
 	* `server_url` - (String) The URL of the SonarQube server.
 	* `user_login` - (String) The user id for authenticating to the SonarQube server.
 	* `user_password` - (String) The password or token for authenticating to the SonarQube server. You can use a toolchain secret reference for this parameter. For more information, see [Protecting your sensitive data in Continuous Delivery](https://cloud.ibm.com/docs/ContinuousDelivery?topic=ContinuousDelivery-cd_data_security#cd_secure_credentials).
-
 * `referent` - (List) Information on URIs to access this resource through the UI or API.
 Nested schema for **referent**:
 	* `api_href` - (String) URI representing this resource through an API.
 	* `ui_href` - (String) URI representing this resource through the UI.
-
 * `resource_group_id` - (String) Resource group where the tool is located.
-
 * `state` - (String) Current configuration state of the tool.
   * Constraints: Allowable values are: `configured`, `configuring`, `misconfigured`, `unconfigured`.
-
 * `toolchain_crn` - (String) CRN of toolchain which the tool is bound to.
-
-
 * `updated_at` - (String) Latest tool update timestamp.
 
